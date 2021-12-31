@@ -1,0 +1,61 @@
+﻿@model IEnumerable<HotelsManager.Reservation>
+
+@{
+    ViewBag.Title = "Reservation";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Reservation</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary" })
+</p>
+<div class="container bg-light rounded-3">
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.IDReservation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FromDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ToDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HotelIDHotel)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PersonIDPerson)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IDReservation)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FromDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ToDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HotelIDHotel)
+                </td>
+                 <td>
+                    @Html.DisplayFor(modelItem => item.PersonIDPerson)
+                </td>
+                <td class="text-end">
+                    @Html.ActionLink("Edit", "Edit", new { id = item.IDReservation }, new { @class = "btn btn-primary btn-sm" }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.IDReservation }, new { @class = "btn btn-secondary btn-sm" }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.IDReservation }, new { @class = "btn btn-danger btn-sm" })
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>

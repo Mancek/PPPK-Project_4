@@ -1,0 +1,272 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="ModelStoreContainer">
+    <EntitySet Name="Hotels" EntityType="Model.Store.Hotels" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="UploadedFiles" EntityType="Model.Store.UploadedFiles" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="People" EntityType="Model.Store.People" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Reservations" EntityType="Model.Store.Reservations" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="HotelUploadedFile" Association="Model.Store.HotelUploadedFile">
+      <End Role="Hotel" EntitySet="Hotels" />
+      <End Role="UploadedFile" EntitySet="UploadedFiles" />
+    </AssociationSet>
+    <AssociationSet Name="HotelReservation" Association="Model.Store.HotelReservation">
+      <End Role="Hotel" EntitySet="Hotels" />
+      <End Role="Reservation" EntitySet="Reservations" />
+    </AssociationSet>
+    <AssociationSet Name="PersonReservation" Association="Model.Store.PersonReservation">
+      <End Role="Person" EntitySet="People" />
+      <End Role="Reservation" EntitySet="Reservations" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Hotels">
+    <Key>
+      <PropertyRef Name="IDHotel" />
+    </Key>
+    <Property Name="IDHotel" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Address" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="City" Type="nvarchar" Nullable="false" MaxLength="20" />
+    <Property Name="Contact" Type="nvarchar" Nullable="false" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="UploadedFiles">
+    <Key>
+      <PropertyRef Name="IDUploadedFile" />
+    </Key>
+    <Property Name="IDUploadedFile" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="ContentType" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Content" Type="varbinary(max)" Nullable="false" />
+    <Property Name="HotelIDHotel" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="People">
+    <Key>
+      <PropertyRef Name="IDPerson" />
+    </Key>
+    <Property Name="IDPerson" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FirstName" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="LatName" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Email" Type="nvarchar" Nullable="false" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Reservations">
+    <Key>
+      <PropertyRef Name="IDReservation" />
+    </Key>
+    <Property Name="IDReservation" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FromDate" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ToDate" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="HotelIDHotel" Type="int" Nullable="false" />
+    <Property Name="PersonIDPerson" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="HotelUploadedFile">
+    <End Role="Hotel" Type="Model.Store.Hotels" Multiplicity="1" />
+    <End Role="UploadedFile" Type="Model.Store.UploadedFiles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Hotel">
+        <PropertyRef Name="IDHotel" />
+      </Principal>
+      <Dependent Role="UploadedFile">
+        <PropertyRef Name="HotelIDHotel" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="HotelReservation">
+    <End Role="Hotel" Type="Model.Store.Hotels" Multiplicity="1" />
+    <End Role="Reservation" Type="Model.Store.Reservations" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Hotel">
+        <PropertyRef Name="IDHotel" />
+      </Principal>
+      <Dependent Role="Reservation">
+        <PropertyRef Name="HotelIDHotel" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PersonReservation">
+    <End Role="Person" Type="Model.Store.People" Multiplicity="1" />
+    <End Role="Reservation" Type="Model.Store.Reservations" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="IDPerson" />
+      </Principal>
+      <Dependent Role="Reservation">
+        <PropertyRef Name="PersonIDPerson" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Model" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="ModelContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Hotels" EntityType="Model.Hotel" />
+          <EntitySet Name="UploadedFiles" EntityType="Model.UploadedFile" />
+          <AssociationSet Name="HotelUploadedFile" Association="Model.HotelUploadedFile">
+            <End Role="Hotel" EntitySet="Hotels" />
+            <End Role="UploadedFile" EntitySet="UploadedFiles" />
+          </AssociationSet>
+          <EntitySet Name="People" EntityType="Model.Person" />
+          <EntitySet Name="Reservations" EntityType="Model.Reservation" />
+          <AssociationSet Name="HotelReservation" Association="Model.HotelReservation">
+            <End Role="Hotel" EntitySet="Hotels" />
+            <End Role="Reservation" EntitySet="Reservations" />
+          </AssociationSet>
+          <AssociationSet Name="PersonReservation" Association="Model.PersonReservation">
+            <End Role="Person" EntitySet="People" />
+            <End Role="Reservation" EntitySet="Reservations" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Hotel">
+          <Key>
+            <PropertyRef Name="IDHotel" />
+          </Key>
+          <Property Name="IDHotel" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Address" Type="String" Nullable="false" MaxLength="50" />
+          <Property Name="City" Type="String" Nullable="false" MaxLength="20" />
+          <Property Name="Contact" Type="String" Nullable="false" MaxLength="50" />
+          <NavigationProperty Name="UploadedFiles" Relationship="Model.HotelUploadedFile" FromRole="Hotel" ToRole="UploadedFile" />
+          <NavigationProperty Name="Reservations" Relationship="Model.HotelReservation" FromRole="Hotel" ToRole="Reservation" />
+        </EntityType>
+        <EntityType Name="UploadedFile">
+          <Key>
+            <PropertyRef Name="IDUploadedFile" />
+          </Key>
+          <Property Name="IDUploadedFile" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" />
+          <Property Name="ContentType" Type="String" Nullable="false" MaxLength="50" />
+          <Property Name="Content" Type="Binary" Nullable="false" />
+          <NavigationProperty Name="Hotel" Relationship="Model.HotelUploadedFile" FromRole="UploadedFile" ToRole="Hotel" />
+          <Property Name="HotelIDHotel" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="HotelUploadedFile">
+          <End Type="Model.Hotel" Role="Hotel" Multiplicity="1" />
+          <End Type="Model.UploadedFile" Role="UploadedFile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hotel">
+              <PropertyRef Name="IDHotel" />
+            </Principal>
+            <Dependent Role="UploadedFile">
+              <PropertyRef Name="HotelIDHotel" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="IDPerson" />
+          </Key>
+          <Property Name="IDPerson" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" />
+          <Property Name="LatName" Type="String" Nullable="false" MaxLength="50" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="50" />
+          <NavigationProperty Name="Reservations" Relationship="Model.PersonReservation" FromRole="Person" ToRole="Reservation" />
+        </EntityType>
+        <EntityType Name="Reservation">
+          <Key>
+            <PropertyRef Name="IDReservation" />
+          </Key>
+          <Property Name="IDReservation" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FromDate" Type="String" Nullable="false" />
+          <Property Name="ToDate" Type="String" Nullable="false" />
+          <NavigationProperty Name="Hotel" Relationship="Model.HotelReservation" FromRole="Reservation" ToRole="Hotel" />
+          <Property Name="HotelIDHotel" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Person" Relationship="Model.PersonReservation" FromRole="Reservation" ToRole="Person" />
+          <Property Name="PersonIDPerson" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="HotelReservation">
+          <End Type="Model.Hotel" Role="Hotel" Multiplicity="1" />
+          <End Type="Model.Reservation" Role="Reservation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hotel">
+              <PropertyRef Name="IDHotel" />
+            </Principal>
+            <Dependent Role="Reservation">
+              <PropertyRef Name="HotelIDHotel" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PersonReservation">
+          <End Type="Model.Person" Role="Person" Multiplicity="1" />
+          <End Type="Model.Reservation" Role="Reservation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="IDPerson" />
+            </Principal>
+            <Dependent Role="Reservation">
+              <PropertyRef Name="PersonIDPerson" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="ModelContainer">
+    <EntitySetMapping Name="Hotels">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.Hotel)">
+        <MappingFragment StoreEntitySet="Hotels">
+          <ScalarProperty Name="IDHotel" ColumnName="IDHotel" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="Contact" ColumnName="Contact" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UploadedFiles">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.UploadedFile)">
+        <MappingFragment StoreEntitySet="UploadedFiles">
+          <ScalarProperty Name="IDUploadedFile" ColumnName="IDUploadedFile" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ContentType" ColumnName="ContentType" />
+          <ScalarProperty Name="Content" ColumnName="Content" />
+          <ScalarProperty Name="HotelIDHotel" ColumnName="HotelIDHotel" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="People">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.Person)">
+        <MappingFragment StoreEntitySet="People">
+          <ScalarProperty Name="IDPerson" ColumnName="IDPerson" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LatName" ColumnName="LatName" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Reservations">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.Reservation)">
+        <MappingFragment StoreEntitySet="Reservations">
+          <ScalarProperty Name="IDReservation" ColumnName="IDReservation" />
+          <ScalarProperty Name="FromDate" ColumnName="FromDate" />
+          <ScalarProperty Name="ToDate" ColumnName="ToDate" />
+          <ScalarProperty Name="HotelIDHotel" ColumnName="HotelIDHotel" />
+          <ScalarProperty Name="PersonIDPerson" ColumnName="PersonIDPerson" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

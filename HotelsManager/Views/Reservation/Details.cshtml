@@ -1,0 +1,59 @@
+﻿@model HotelsManager.Reservation
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Reservation</h4>
+    <hr />
+    <dl class="dl-horizontal form-control">
+        <dt>
+            @Html.DisplayNameFor(model => model.IDReservation)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IDReservation)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FromDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FromDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ToDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ToDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HotelIDHotel)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HotelIDHotel)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PersonIDPerson)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PersonIDPerson)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new {  id = Model.IDReservation }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

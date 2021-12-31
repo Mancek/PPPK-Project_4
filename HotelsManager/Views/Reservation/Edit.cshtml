@@ -1,0 +1,80 @@
+﻿@model HotelsManager.Reservation
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var ddlOpcijeHotel = new SelectList(
+        items: ViewBag.AllHotels,
+        dataTextField: "IDHotel",
+        dataValueField: "IDHotel");
+
+    var ddlOpcijePerson = new SelectList(
+        items: ViewBag.AllPeople,
+        dataTextField: "IDPerson",
+        dataValueField: "IDPerson");
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm("Edit", "Reservation", null, FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <h4>Reservation</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.IDReservation, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.IDReservation, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.FromDate, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+             @Html.EditorFor(model => model.FromDate, new { htmlAttributes = new { @class = "form-control" } })
+             @Html.ValidationMessageFor(model => model.FromDate, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.ToDate, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.ToDate, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.ToDate, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.HotelIDHotel, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("HotelIDHotel", selectList: ddlOpcijeHotel, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.HotelIDHotel, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.PersonIDPerson, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("PersonIDPerson", selectList: ddlOpcijePerson, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.PersonIDPerson, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group mt-3">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Save" class="btn btn-primary" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

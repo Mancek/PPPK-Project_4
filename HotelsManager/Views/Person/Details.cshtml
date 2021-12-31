@@ -1,0 +1,51 @@
+﻿@model HotelsManager.Person
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Person</h4>
+    <hr />
+    <dl class="dl-horizontal form-control">
+        <dt>
+            @Html.DisplayNameFor(model => model.IDPerson)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IDPerson)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LatName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LatName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new {  id = Model.IDPerson }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

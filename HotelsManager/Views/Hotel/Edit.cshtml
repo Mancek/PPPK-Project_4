@@ -1,0 +1,83 @@
+﻿@model HotelsManager.Hotel
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm("Edit", "Hotel", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Hotel</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.IDHotel, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.IDHotel, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.City, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Contact, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Contact, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Contact, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @foreach (var uploadedFile in Model.UploadedFiles)
+        {
+            <div class="form-group mt-3">
+                <span class="control-label col-md-2">
+                    <strong>@uploadedFile.Name</strong>
+                    @Ajax.ActionLink("Delete", "Delete", "File", new { id = uploadedFile.IDUploadedFile }, new AjaxOptions() { HttpMethod = "Post" }, new { @class = "btn btn-danger" } )
+                </span>
+                <div class="col-md-10 mt-2">
+                    <img src="~/File?id=@uploadedFile.IDUploadedFile" alt="picture" width="300" height="200" />
+                </div>
+            </div>
+        }
+
+        <div class="form-group">
+            @Html.Label("Picture", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input class="form-control form-control-sm" type="file" id="Picture" multiple accept="image/*" name="files" />
+            </div>
+        </div>
+
+        <div class="form-group mt-3">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,55 @@
+﻿@model IEnumerable<HotelsManager.Person>
+
+@{
+    ViewBag.Title = "Person";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Person</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary" })
+</p>
+<div class="container bg-light rounded-3">
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.IDPerson)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LatName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IDPerson)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LatName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td class="text-end">
+                    @Html.ActionLink("Edit", "Edit", new { id = item.IDPerson }, new { @class = "btn btn-primary btn-sm" }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.IDPerson }, new { @class = "btn btn-secondary btn-sm" }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.IDPerson }, new { @class = "btn btn-danger btn-sm" })
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
